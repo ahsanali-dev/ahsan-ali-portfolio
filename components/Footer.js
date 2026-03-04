@@ -1,0 +1,104 @@
+"use client";
+
+import { useState, useEffect } from "react";
+import { motion } from "framer-motion";
+import { ArrowUp } from "lucide-react";
+import { getProfile } from "@/app/actions/portfolio";
+
+export default function Footer() {
+  const [profile, setProfile] = useState(null);
+
+  useEffect(() => {
+    getProfile().then(setProfile);
+  }, []);
+
+  const links = [
+    { label: "LinkedIn", href: profile?.linkedinUrl },
+    { label: "GitHub", href: profile?.githubUrl },
+    { label: "Twitter", href: profile?.twitterUrl },
+  ].filter((l) => l.href && l.href !== "#" && l.href !== "");
+
+  return (
+    <footer
+      style={{
+        padding: "60px 10%",
+        textAlign: "center",
+        fontSize: "1rem",
+        color: "var(--secondary-text)",
+        borderTop: "1.5px solid var(--border-line)",
+        background: "var(--background)",
+        position: "relative",
+      }}
+    >
+      <div
+        style={{
+          maxWidth: "1200px",
+          margin: "0 auto",
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+          flexWrap: "wrap",
+          gap: "20px",
+        }}
+      >
+        <div style={{ textAlign: "left" }}>
+          <h3 style={{ color: "white", marginBottom: "10px", fontWeight: 800 }}>
+            {profile?.userName || "Ahsan Ali"}
+          </h3>
+          <p style={{ fontSize: "0.9rem" }}>
+            Designing the future, one pixel at a time.
+          </p>
+        </div>
+
+        <div style={{ display: "flex", gap: "25px" }}>
+          {links.map((link, i) => (
+            <a
+              key={i}
+              href={link.href}
+              target="_blank"
+              rel="noreferrer"
+              style={{
+                transition: "0.3s color",
+                color: "var(--secondary-text)",
+              }}
+              onMouseOver={(e) => (e.target.style.color = "var(--primary)")}
+              onMouseOut={(e) =>
+                (e.target.style.color = "var(--secondary-text)")
+              }
+            >
+              {link.label}
+            </a>
+          ))}
+        </div>
+
+        <motion.button
+          onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+          whileHover={{
+            scale: 1.1,
+            backgroundColor: "var(--primary)",
+            color: "white",
+          }}
+          style={{
+            width: "45px",
+            height: "45px",
+            borderRadius: "12px",
+            background: "var(--card-bg)",
+            border: "1px solid var(--border-line)",
+            color: "var(--primary)",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            cursor: "pointer",
+          }}
+        >
+          <ArrowUp size={20} />
+        </motion.button>
+      </div>
+
+      <div style={{ marginTop: "40px", fontSize: "0.85rem", opacity: 0.6 }}>
+        © {new Date().getFullYear()} {profile?.userName || "Ahsan Ali"}. All
+        Rights Reserved.
+      </div>
+    </footer>
+  );
+}
