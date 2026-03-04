@@ -1,0 +1,129 @@
+﻿
+> portfolio@0.1.0 build
+> next build
+
+node.exe : ΓÜá Warning: 
+Next.js inferred your 
+workspace root, but it may 
+not be correct.
+At C:\Program 
+Files\nodejs\npm.ps1:29 char:3
++   & $NODE_EXE $NPM_CLI_JS 
+$args
++   
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : 
+    NotSpecified: (ΓÜá Warni  
+  ng: Ne...not be correct.:   
+ String) [], RemoteExcepti    
+on
+    + FullyQualifiedErrorId : 
+    NativeCommandError
+ 
+ We detected multiple 
+lockfiles and selected the 
+directory of C:\Users\ahsan.al
+i\package-lock.json as the 
+root directory.
+ To silence this warning, set 
+`turbopack.root` in your 
+Next.js config, or consider 
+removing one of the lockfiles 
+if it's not needed.
+   See https://nextjs.org/docs
+/app/api-reference/config/next
+-config-js/turbopack#root-dire
+ctory for more information.
+ Detected additional 
+lockfiles: 
+   * C:\Users\ahsan.ali\Downlo
+ads\ahsan\New folder\portfolio
+\package-lock.json
+   * C:\Users\ahsan.ali\Downlo
+ads\ahsan\package-lock.json
+
+Γû▓ Next.js 16.1.6 (Turbopack)
+- Environments: .env
+
+  Creating an optimized production build ...
+
+> Build error occurred
+Error: Turbopack build failed 
+with 1 errors:
+./Downloads/ahsan/New folder/p
+ortfolio/app/page.js:14:17
+Ecmascript file had an error
+[0m [90m 12 |[39m 
+[36mimport[39m 
+[33mFooter[39m 
+[36mfrom[39m [32m"@/compone
+nts/Footer"[39m[33m;[39m
+ [90m 13 |[39m
+[31m[1m>[22m[39m[90m 14 
+|[39m [36mconst[39m 
+[33mScene3D[39m [33m=[39m 
+dynamic(() [33m=>[39m [36mi
+mport[39m([32m"@/components/
+Scene3D"[39m)[33m,[39m { 
+ssr[33m:[39m 
+[36mfalse[39m })[33m;[39m
+ [90m    |[39m              
+   [31m[1m^[22m[39m[31m[
+1m^[22m[39m[31m[1m^[22m[
+39m[31m[1m^[22m[39m[31m[
+1m^[22m[39m[31m[1m^[22m[
+39m[31m[1m^[22m[39m[31m[
+1m^[22m[39m[31m[1m^[22m[
+39m[31m[1m^[22m[39m[31m[
+1m^[22m[39m[31m[1m^[22m[
+39m[31m[1m^[22m[39m[31m[
+1m^[22m[39m[31m[1m^[22m[
+39m[31m[1m^[22m[39m[31m[
+1m^[22m[39m[31m[1m^[22m[
+39m[31m[1m^[22m[39m[31m[
+1m^[22m[39m[31m[1m^[22m[
+39m[31m[1m^[22m[39m[31m[
+1m^[22m[39m[31m[1m^[22m[
+39m[31m[1m^[22m[39m[31m[
+1m^[22m[39m[31m[1m^[22m[
+39m[31m[1m^[22m[39m[31m[
+1m^[22m[39m[31m[1m^[22m[
+39m[31m[1m^[22m[39m[31m[
+1m^[22m[39m[31m[1m^[22m[
+39m[31m[1m^[22m[39m[31m[
+1m^[22m[39m[31m[1m^[22m[
+39m[31m[1m^[22m[39m[31m[
+1m^[22m[39m[31m[1m^[22m[
+39m[31m[1m^[22m[39m[31m[
+1m^[22m[39m[31m[1m^[22m[
+39m[31m[1m^[22m[39m[31m[
+1m^[22m[39m[31m[1m^[22m[
+39m[31m[1m^[22m[39m[31m[
+1m^[22m[39m[31m[1m^[22m[
+39m[31m[1m^[22m[39m[31m[
+1m^[22m[39m[31m[1m^[22m[
+39m[31m[1m^[22m[39m[31m[
+1m^[22m[39m[31m[1m^[22m[
+39m[31m[1m^[22m[39m[31m[
+1m^[22m[39m[31m[1m^[22m[
+39m[31m[1m^[22m[39m[31m[
+1m^[22m[39m[31m[1m^[22m[
+39m[31m[1m^[22m[39m
+ [90m 15 |[39m
+ [90m 16 |[39m 
+[36mexport[39m 
+[36mdefault[39m 
+[36mfunction[39m 
+[33mHome[39m() {
+ [90m 17 |[39m   
+[36mreturn[39m ([0m
+
+`ssr: false` is not allowed 
+with `next/dynamic` in Server 
+Components. Please move it 
+into a Client Component.
+
+
+    at <unknown> 
+(./Downloads/ahsan/New folder/
+portfolio/app/page.js:14:17)
