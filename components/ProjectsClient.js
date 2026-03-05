@@ -5,7 +5,7 @@ import { ExternalLink, Github as GithubIcon } from "lucide-react";
 
 export default function ProjectsClient({ projects }) {
   return (
-    <section id="projects">
+    <section id="projects" className="projects-section">
       <div className="max-width-container">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -25,15 +25,16 @@ export default function ProjectsClient({ projects }) {
           >
             My Work
           </p>
-          <h2 style={{ fontSize: "clamp(3rem, 6vw, 5rem)", fontWeight: 900 }}>
+          <h2 style={{ fontSize: "clamp(2.5rem, 6vw, 5rem)", fontWeight: 900 }}>
             Featured <span className="gradient-text">Projects.</span>
           </h2>
         </motion.div>
 
         <div
+          className="projects-grid"
           style={{
             display: "grid",
-            gridTemplateColumns: "repeat(auto-fit, minmax(340px, 1fr))",
+            gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))",
             gap: "40px",
           }}
         >
@@ -106,7 +107,7 @@ export default function ProjectsClient({ projects }) {
                 </div>
 
                 {/* Project Info */}
-                <div style={{ padding: "30px" }}>
+                <div className="project-info" style={{ padding: "30px" }}>
                   <h3
                     style={{
                       fontSize: "1.5rem",
@@ -155,12 +156,16 @@ export default function ProjectsClient({ projects }) {
                   </div>
 
                   {/* Links */}
-                  <div style={{ display: "flex", gap: "15px" }}>
+                  <div
+                    className="project-links"
+                    style={{ display: "flex", gap: "15px" }}
+                  >
                     {proj.githubLink && proj.githubLink !== "#" && (
                       <a
                         href={proj.githubLink}
                         target="_blank"
                         rel="noopener noreferrer"
+                        className="project-link-btn"
                         style={{
                           display: "flex",
                           alignItems: "center",
@@ -174,15 +179,9 @@ export default function ProjectsClient({ projects }) {
                           fontSize: "0.9rem",
                           border: "1px solid var(--border-line)",
                           transition: "0.3s",
+                          flex: 1,
+                          justifyContent: "center",
                         }}
-                        onMouseOver={(e) =>
-                          (e.currentTarget.style.background =
-                            "rgba(255,255,255,0.1)")
-                        }
-                        onMouseOut={(e) =>
-                          (e.currentTarget.style.background =
-                            "rgba(255,255,255,0.05)")
-                        }
                       >
                         <GithubIcon size={16} /> Code
                       </a>
@@ -192,6 +191,7 @@ export default function ProjectsClient({ projects }) {
                         href={proj.liveLink}
                         target="_blank"
                         rel="noopener noreferrer"
+                        className="project-link-btn primary"
                         style={{
                           display: "flex",
                           alignItems: "center",
@@ -204,13 +204,9 @@ export default function ProjectsClient({ projects }) {
                           fontWeight: 600,
                           fontSize: "0.9rem",
                           transition: "0.3s",
+                          flex: 1,
+                          justifyContent: "center",
                         }}
-                        onMouseOver={(e) =>
-                          (e.currentTarget.style.filter = "brightness(1.1)")
-                        }
-                        onMouseOut={(e) =>
-                          (e.currentTarget.style.filter = "none")
-                        }
                       >
                         <ExternalLink size={16} /> Live Demo
                       </a>
@@ -222,6 +218,24 @@ export default function ProjectsClient({ projects }) {
           })}
         </div>
       </div>
+
+      <style jsx>{`
+        @media (max-width: 768px) {
+          .projects-grid {
+            grid-template-columns: 1fr !important;
+            gap: 25px !important;
+          }
+          .projects-section {
+            padding: 80px 20px !important;
+          }
+          .project-info {
+            padding: 20px !important;
+          }
+          .project-links {
+            flex-direction: column;
+          }
+        }
+      `}</style>
     </section>
   );
 }

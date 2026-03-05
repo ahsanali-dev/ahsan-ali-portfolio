@@ -24,16 +24,17 @@ export default function AboutClient({ profile }) {
       }}
     >
       <div
-        className="max-width-container"
+        className="max-width-container about-grid"
         style={{
           display: "grid",
-          gridTemplateColumns: "repeat(auto-fit, minmax(400px, 1fr))",
+          gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))",
           gap: "80px",
           alignItems: "center",
         }}
       >
         {/* Left: Image / Placeholder */}
         <motion.div
+          className="about-image"
           initial={{ opacity: 0, x: -50 }}
           whileInView={{
             opacity: 1,
@@ -50,8 +51,8 @@ export default function AboutClient({ profile }) {
           }}
           viewport={{ once: true }}
           style={{
-            width: "400px",
-            height: "400px",
+            width: "clamp(250px, 80vw, 400px)",
+            height: "clamp(250px, 80vw, 400px)",
             background: "var(--card-bg)",
             overflow: "hidden",
             border: "1px solid var(--border-line)",
@@ -76,6 +77,7 @@ export default function AboutClient({ profile }) {
 
         {/* Right: Bio & Stats */}
         <motion.div
+          className="about-text"
           initial={{ opacity: 0, x: 50 }}
           whileInView={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.8 }}
@@ -93,14 +95,18 @@ export default function AboutClient({ profile }) {
             About Me
           </p>
           <h2
-            style={{ fontSize: "3rem", fontWeight: 800, marginBottom: "25px" }}
+            style={{
+              fontSize: "clamp(2rem, 5vw, 3rem)",
+              fontWeight: 800,
+              marginBottom: "25px",
+            }}
           >
             Transforming Ideas <br /> Into{" "}
             <span className="gradient-text">Reality.</span>
           </h2>
           <p
             style={{
-              fontSize: "1.2rem",
+              fontSize: "clamp(1rem, 1.5vw, 1.2rem)",
               color: "var(--secondary-text)",
               lineHeight: 1.8,
               marginBottom: "40px",
@@ -110,9 +116,10 @@ export default function AboutClient({ profile }) {
           </p>
 
           <div
+            className="stats-grid"
             style={{
               display: "grid",
-              gridTemplateColumns: "repeat(auto-fit, minmax(140px, 1fr))",
+              gridTemplateColumns: "repeat(auto-fit, minmax(120px, 1fr))",
               gap: "20px",
             }}
           >
@@ -154,6 +161,20 @@ export default function AboutClient({ profile }) {
           </div>
         </motion.div>
       </div>
+
+      <style jsx>{`
+        @media (max-width: 768px) {
+          .about-grid {
+            gap: 50px !important;
+            text-align: center;
+          }
+          .about-text {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+          }
+        }
+      `}</style>
     </section>
   );
 }

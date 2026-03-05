@@ -63,19 +63,21 @@ export default function Contact() {
   return (
     <section
       id="contact"
+      className="contact-section"
       style={{ display: "flex", flexDirection: "column", alignItems: "center" }}
     >
       <div
-        className="max-width-container"
+        className="max-width-container contact-grid"
         style={{
           display: "grid",
-          gridTemplateColumns: "repeat(auto-fit, minmax(400px, 1fr))",
+          gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))",
           gap: "80px",
           width: "100%",
         }}
       >
         {/* Left Side: Information & Socials */}
         <motion.div
+          className="contact-info"
           initial={{ opacity: 0, x: -50 }}
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true }}
@@ -94,7 +96,7 @@ export default function Contact() {
           </p>
           <h2
             style={{
-              fontSize: "clamp(3rem, 6vw, 4.5rem)",
+              fontSize: "clamp(2.5rem, 6vw, 4.5rem)",
               fontWeight: 900,
               marginBottom: "30px",
               color: "white",
@@ -104,7 +106,7 @@ export default function Contact() {
           </h2>
           <p
             style={{
-              fontSize: "1.2rem",
+              fontSize: "clamp(1rem, 1.5vw, 1.2rem)",
               color: "var(--secondary-text)",
               lineHeight: 1.8,
               marginBottom: "40px",
@@ -116,6 +118,7 @@ export default function Contact() {
           </p>
 
           <div
+            className="social-links"
             style={{ display: "flex", flexDirection: "column", gap: "25px" }}
           >
             {socials.map((social, i) => (
@@ -155,6 +158,7 @@ export default function Contact() {
 
         {/* Right Side: Contact Form */}
         <motion.div
+          className="contact-form-container"
           initial={{ opacity: 0, x: 50 }}
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true }}
@@ -288,6 +292,20 @@ export default function Contact() {
           </form>
         </motion.div>
       </div>
+
+      <style jsx>{`
+        @media (max-width: 768px) {
+          .contact-grid {
+            gap: 50px !important;
+          }
+          .contact-section {
+            padding: 80px 20px !important;
+          }
+          .contact-form-container {
+            padding: 25px !important;
+          }
+        }
+      `}</style>
     </section>
   );
 }

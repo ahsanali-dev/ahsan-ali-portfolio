@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 
 export default function ExperienceClient({ experiences }) {
   return (
-    <section id="experience">
+    <section id="experience" className="experience-section">
       <div className="max-width-container">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -24,16 +24,18 @@ export default function ExperienceClient({ experiences }) {
           >
             My Career Path
           </p>
-          <h2 style={{ fontSize: "clamp(3rem, 6vw, 5rem)", fontWeight: 900 }}>
+          <h2 style={{ fontSize: "clamp(2.5rem, 6vw, 5rem)", fontWeight: 900 }}>
             Work <span className="gradient-text">Experience.</span>
           </h2>
         </motion.div>
 
         <div
+          className="timeline-container"
           style={{ position: "relative", maxWidth: "900px", margin: "0 auto" }}
         >
           {/* Timeline Line */}
           <div
+            className="timeline-line"
             style={{
               position: "absolute",
               left: "20px",
@@ -60,20 +62,20 @@ export default function ExperienceClient({ experiences }) {
                 viewport={{ once: true }}
                 style={{
                   background: "var(--card-bg)",
-                  marginLeft: "60px",
-                  marginBottom: "50px",
-                  padding: "40px",
                   borderRadius: "25px",
                   border: "1.5px solid var(--border-line)",
                   position: "relative",
+                  marginBottom: "50px",
+                  marginLeft: "60px",
+                  padding: "40px",
                 }}
               >
                 {/* Timeline dot */}
                 <div
                   style={{
                     position: "absolute",
-                    left: "-52px",
-                    top: "45px",
+                    left: "-50px",
+                    top: "42px",
                     width: "24px",
                     height: "24px",
                     borderRadius: "50%",
@@ -109,8 +111,9 @@ export default function ExperienceClient({ experiences }) {
                 )}
 
                 <h3
+                  className="experience-role"
                   style={{
-                    fontSize: "1.8rem",
+                    fontSize: "clamp(1.4rem, 4vw, 1.8rem)",
                     fontWeight: 800,
                     color: "white",
                   }}
@@ -118,10 +121,11 @@ export default function ExperienceClient({ experiences }) {
                   {exp.role}
                 </h3>
                 <p
+                  className="experience-company"
                   style={{
                     color: "var(--primary)",
                     fontWeight: 700,
-                    fontSize: "1.1rem",
+                    fontSize: "clamp(0.9rem, 2.5vw, 1.1rem)",
                     marginBottom: "25px",
                     textTransform: "uppercase",
                     letterSpacing: "1px",
@@ -142,7 +146,7 @@ export default function ExperienceClient({ experiences }) {
                   style={{
                     paddingLeft: "20px",
                     color: "var(--secondary-text)",
-                    fontSize: "1.05rem",
+                    fontSize: "clamp(0.9rem, 2vw, 1.05rem)",
                   }}
                 >
                   {bullets.map((bullet, idx) => (

@@ -20,6 +20,7 @@ export default function Footer() {
 
   return (
     <footer
+      className="footer"
       style={{
         padding: "60px 10%",
         textAlign: "center",
@@ -31,6 +32,7 @@ export default function Footer() {
       }}
     >
       <div
+        className="footer-container"
         style={{
           maxWidth: "1200px",
           margin: "0 auto",
@@ -41,7 +43,7 @@ export default function Footer() {
           gap: "20px",
         }}
       >
-        <div style={{ textAlign: "left" }}>
+        <div className="footer-info" style={{ textAlign: "left" }}>
           <h3 style={{ color: "white", marginBottom: "10px", fontWeight: 800 }}>
             {profile?.userName || "Ahsan Ali"}
           </h3>
@@ -50,7 +52,7 @@ export default function Footer() {
           </p>
         </div>
 
-        <div style={{ display: "flex", gap: "25px" }}>
+        <div className="footer-links" style={{ display: "flex", gap: "25px" }}>
           {links.map((link, i) => (
             <a
               key={i}
@@ -78,6 +80,7 @@ export default function Footer() {
             backgroundColor: "var(--primary)",
             color: "white",
           }}
+          className="scroll-top-btn"
           style={{
             width: "45px",
             height: "45px",
@@ -99,6 +102,24 @@ export default function Footer() {
         © {new Date().getFullYear()} {profile?.userName || "Ahsan Ali"}. All
         Rights Reserved.
       </div>
+
+      <style jsx>{`
+        @media (max-width: 768px) {
+          .footer {
+            padding: 40px 20px !important;
+          }
+          .footer-container {
+            flex-direction: column !important;
+            text-align: center;
+          }
+          .footer-info {
+            text-align: center !important;
+          }
+          .footer-links {
+            justify-content: center;
+          }
+        }
+      `}</style>
     </footer>
   );
 }

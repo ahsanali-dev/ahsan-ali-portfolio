@@ -27,6 +27,7 @@ export default function HeroClient({ profile }) {
   return (
     <section
       id="hero"
+      className="hero-section"
       style={{
         paddingTop: "var(--nav-height)",
         position: "relative",
@@ -38,13 +39,13 @@ export default function HeroClient({ profile }) {
         paddingLeft: "10%",
       }}
     >
-      <div style={{ flex: 1, zIndex: 10 }}>
+      <div className="hero-content" style={{ flex: 1, zIndex: 10 }}>
         <motion.div variants={container} initial="hidden" animate="show">
           <motion.p
             variants={item}
             style={{
               color: "var(--primary)",
-              fontSize: "1.2rem",
+              fontSize: "clamp(1rem, 2vw, 1.2rem)",
               fontWeight: 600,
               letterSpacing: "2px",
               marginBottom: "15px",
@@ -55,7 +56,7 @@ export default function HeroClient({ profile }) {
           <motion.h1
             variants={item}
             style={{
-              fontSize: "clamp(3rem, 10vw, 6.5rem)",
+              fontSize: "clamp(2.5rem, 8vw, 4.5rem)",
               lineHeight: 1.1,
               marginBottom: "20px",
               fontWeight: 800,
@@ -69,7 +70,7 @@ export default function HeroClient({ profile }) {
           <motion.p
             variants={item}
             style={{
-              fontSize: "1.3rem",
+              fontSize: "clamp(1rem, 2vw, 1.3rem)",
               color: "var(--secondary-text)",
               maxWidth: "600px",
               lineHeight: 1.6,
@@ -78,7 +79,11 @@ export default function HeroClient({ profile }) {
           >
             {desc}
           </motion.p>
-          <motion.div variants={item} style={{ display: "flex", gap: "20px" }}>
+          <motion.div
+            variants={item}
+            className="hero-btns"
+            style={{ display: "flex", gap: "20px" }}
+          >
             <motion.a
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
@@ -118,6 +123,7 @@ export default function HeroClient({ profile }) {
         </motion.div>
       </div>
       <div
+        className="hero-image-container"
         style={{
           flex: 1,
           display: "flex",
@@ -131,8 +137,8 @@ export default function HeroClient({ profile }) {
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 1.5, type: "spring" }}
           style={{
-            width: "450px",
-            height: "450px",
+            width: "clamp(250px, 40vw, 450px)",
+            height: "clamp(250px, 40vw, 450px)",
             background:
               "radial-gradient(circle, rgba(59, 130, 246, 0.3) 0%, transparent 70%)",
             borderRadius: "50%",
@@ -153,8 +159,8 @@ export default function HeroClient({ profile }) {
           }}
           transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
           style={{
-            width: "400px",
-            height: "400px",
+            width: "clamp(200px, 35vw, 400px)",
+            height: "clamp(200px, 35vw, 400px)",
             background: "var(--card-bg)",
             border: "2px solid var(--border-line)",
             zIndex: 1,
@@ -178,6 +184,39 @@ export default function HeroClient({ profile }) {
           )}
         </motion.div>
       </div>
+
+      <style jsx>{`
+        @media (max-width: 992px) {
+          .hero-section {
+            flex-direction: column !important;
+            padding: 120px 5% 60px 5% !important;
+            text-align: center;
+          }
+          .hero-content {
+            order: 2;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+          }
+          .hero-image-container {
+            order: 1;
+            margin-bottom: 50px;
+          }
+          .hero-btns {
+            justify-content: center;
+          }
+        }
+        @media (max-width: 480px) {
+          .hero-btns {
+            flex-direction: column;
+            width: 100%;
+          }
+          .hero-btns a {
+            width: 100%;
+            text-align: center;
+          }
+        }
+      `}</style>
     </section>
   );
 }

@@ -28,6 +28,7 @@ export default function SkillsClient({ skills }) {
   return (
     <section
       id="skills"
+      className="skills-section"
       style={{
         position: "relative",
         padding: "120px 10%",
@@ -36,6 +37,7 @@ export default function SkillsClient({ skills }) {
     >
       {/* Decorative background elements */}
       <div
+        className="skill-bg-blob-1"
         style={{
           position: "absolute",
           top: "20%",
@@ -48,6 +50,7 @@ export default function SkillsClient({ skills }) {
         }}
       />
       <div
+        className="skill-bg-blob-2"
         style={{
           position: "absolute",
           bottom: "10%",
@@ -84,7 +87,7 @@ export default function SkillsClient({ skills }) {
           </motion.p>
           <h2
             style={{
-              fontSize: "clamp(3rem, 6vw, 4.5rem)",
+              fontSize: "clamp(2.5rem, 6vw, 4.5rem)",
               fontWeight: 900,
               lineHeight: 1.1,
             }}
@@ -94,9 +97,10 @@ export default function SkillsClient({ skills }) {
         </motion.div>
 
         <div
+          className="skills-grid"
           style={{
             display: "grid",
-            gridTemplateColumns: "repeat(auto-fit, minmax(360px, 1fr))",
+            gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))",
             gap: "35px",
           }}
         >
@@ -160,7 +164,7 @@ export default function SkillsClient({ skills }) {
                     </div>
                     <h3
                       style={{
-                        fontSize: "1.7rem",
+                        fontSize: "clamp(1.2rem, 3vw, 1.7rem)",
                         fontWeight: 800,
                         color: "#f8fafc",
                         letterSpacing: "-0.5px",
@@ -219,6 +223,23 @@ export default function SkillsClient({ skills }) {
           })}
         </div>
       </div>
+
+      <style jsx>{`
+        @media (max-width: 1024px) {
+          .skills-section {
+            padding: 100px 5% !important;
+          }
+        }
+        @media (max-width: 768px) {
+          .skills-grid {
+            grid-template-columns: 1fr !important;
+            gap: 20px !important;
+          }
+          .skills-section {
+            padding: 80px 20px !important;
+          }
+        }
+      `}</style>
     </section>
   );
 }
