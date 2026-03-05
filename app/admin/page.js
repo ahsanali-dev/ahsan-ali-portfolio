@@ -842,6 +842,11 @@ export default function AdminDashboard() {
 // ─── Overview View ──────────────────────────────────────────────
 function OverviewView({ showToast }) {
   const [profile, setProfile] = useState(null);
+  const [stats, setStats] = useState({
+    projects: "—",
+    experience: "—",
+    clients: "—",
+  });
   const [form, setForm] = useState({
     userName: "Ahsan Ali",
     headline: "Frontend Developer & React/Next.js Expert",
@@ -876,6 +881,11 @@ function OverviewView({ showToast }) {
           projectsDone: p.projectsDone || "",
           happyClients: p.happyClients || "",
         });
+        setStats({
+          projects: p.projectsDone || "0",
+          experience: p.expYears ? `${p.expYears} Yrs` : "0",
+          clients: p.happyClients || "0",
+        });
       }
     });
   }, []);
@@ -883,8 +893,14 @@ function OverviewView({ showToast }) {
   const handleSave = () => {
     startTransition(async () => {
       const result = await updateProfile(form);
-      if (result.success) showToast("Profile updated successfully!");
-      else showToast("Error updating profile", "error");
+      if (result.success) {
+        showToast("Profile updated successfully!");
+        setStats({
+          projects: form.projectsDone || "0",
+          experience: form.expYears ? `${form.expYears} Yrs` : "0",
+          clients: form.happyClients || "0",
+        });
+      } else showToast("Error updating profile", "error");
     });
   };
 
@@ -902,9 +918,24 @@ function OverviewView({ showToast }) {
         }}
       >
         {[
-          { label: "Total Projects", icon: FolderPlus, color: "#3b82f6" },
-          { label: "Active Experience", icon: Briefcase, color: "#22d3ee" },
-          { label: "Profile Views", icon: Settings, color: "#8b5cf6" },
+          {
+            label: "Total Projects",
+            icon: FolderPlus,
+            color: "#3b82f6",
+            value: stats.projects,
+          },
+          {
+            label: "Years Experience",
+            icon: Briefcase,
+            color: "#22d3ee",
+            value: stats.experience,
+          },
+          {
+            label: "Happy Clients",
+            icon: Settings,
+            color: "#8b5cf6",
+            value: stats.clients,
+          },
         ].map((stat, i) => (
           <div
             key={i}
@@ -929,7 +960,9 @@ function OverviewView({ showToast }) {
               <p style={{ color: "var(--secondary-text)", fontSize: "0.9rem" }}>
                 {stat.label}
               </p>
-              <h3 style={{ fontSize: "1.8rem", fontWeight: 800 }}>—</h3>
+              <h3 style={{ fontSize: "1.8rem", fontWeight: 800 }}>
+                {stat.value}
+              </h3>
             </div>
           </div>
         ))}
@@ -969,7 +1002,7 @@ function OverviewView({ showToast }) {
             gap: "25px",
           }}
         >
-          <div>
+          <div style={{ gridColumn: "span 2" }}>
             <label>
               <User size={16} /> User Name
             </label>
@@ -981,7 +1014,7 @@ function OverviewView({ showToast }) {
               }
             />
           </div>
-          <div>
+          <div style={{ gridColumn: "span 2" }}>
             <label>
               <FileText size={16} /> Headline
             </label>
