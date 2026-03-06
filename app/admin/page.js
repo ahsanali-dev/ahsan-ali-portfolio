@@ -204,6 +204,11 @@ function ConfirmModal({ isOpen, title, message, onConfirm, onCancel }) {
 // ─── Image Upload Component ─────────────────────────────────────
 function ImageUpload({ label, onImageChange, currentImage }) {
   const [preview, setPreview] = useState(currentImage || null);
+
+  useEffect(() => {
+    setPreview(currentImage || null);
+  }, [currentImage]);
+
   const handleFileChange = (e) => {
     const file = e.target.files[0];
     if (file) {
