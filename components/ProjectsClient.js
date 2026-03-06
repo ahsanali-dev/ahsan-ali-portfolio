@@ -123,6 +123,10 @@ export default function ProjectsClient({ projects }) {
                       lineHeight: 1.6,
                       fontSize: "0.95rem",
                       marginBottom: "20px",
+                      display: "-webkit-box",
+                      WebkitLineClamp: 4,
+                      WebkitBoxOrient: "vertical",
+                      overflow: "hidden",
                     }}
                   >
                     {proj.description}

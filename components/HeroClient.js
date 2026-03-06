@@ -56,7 +56,7 @@ export default function HeroClient({ profile }) {
           <motion.h1
             variants={item}
             style={{
-              fontSize: "clamp(2.5rem, 8vw, 4.5rem)",
+              fontSize: "clamp(2rem, 8vw, 3.5rem)",
               lineHeight: 1.1,
               marginBottom: "20px",
               fontWeight: 800,
