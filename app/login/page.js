@@ -2,7 +2,15 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { LogIn, Lock, User, Eye, EyeOff, ArrowLeft } from "lucide-react";
+import {
+  LogIn,
+  Lock,
+  User,
+  Eye,
+  EyeOff,
+  ArrowLeft,
+  Loader,
+} from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { validateAdmin } from "@/app/actions/portfolio";
@@ -10,17 +18,23 @@ import { validateAdmin } from "@/app/actions/portfolio";
 export default function AdminLogin() {
   const [showPassword, setShowPassword] = useState(false);
   const [formData, setFormData] = useState({ username: "", password: "" });
+  const [loading, setLoading] = useState(false);
   const router = useRouter();
 
   const handleLogin = async (e) => {
     e.preventDefault();
-    const result = await validateAdmin(formData.username, formData.password);
+    setLoading(true);
+    try {
+      const result = await validateAdmin(formData.username, formData.password);
 
-    if (result.success) {
-      localStorage.setItem("isLoggedIn", "true");
-      router.push("/admin");
-    } else {
-      alert(result.error || "Invalid Credentials!");
+      if (result.success) {
+        localStorage.setItem("isLoggedIn", "true");
+        router.push("/admin");
+      } else {
+        alert(result.error || "Invalid Credentials!");
+      }
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -161,6 +175,7 @@ export default function AdminLogin() {
                 onChange={(e) =>
                   setFormData({ ...formData, username: e.target.value })
                 }
+                disabled={loading}
                 style={{
                   width: "100%",
                   padding: "14px 15px 14px 45px",
@@ -170,6 +185,7 @@ export default function AdminLogin() {
                   color: "white",
                   outline: "none",
                   transition: "0.3s",
+                  opacity: loading ? 0.7 : 1,
                 }}
                 required
               />
@@ -206,6 +222,7 @@ export default function AdminLogin() {
                 onChange={(e) =>
                   setFormData({ ...formData, password: e.target.value })
                 }
+                disabled={loading}
                 style={{
                   width: "100%",
                   padding: "14px 45px 14px 45px",
@@ -215,12 +232,14 @@ export default function AdminLogin() {
                   color: "white",
                   outline: "none",
                   transition: "0.3s",
+                  opacity: loading ? 0.7 : 1,
                 }}
                 required
               />
               <button
                 type="button"
                 onClick={() => setShowPassword(!showPassword)}
+                disabled={loading}
                 style={{
                   position: "absolute",
                   right: "15px",
@@ -229,7 +248,8 @@ export default function AdminLogin() {
                   background: "none",
                   border: "none",
                   color: "var(--secondary-text)",
-                  cursor: "pointer",
+                  cursor: loading ? "not-allowed" : "pointer",
+                  opacity: loading ? 0.5 : 1,
                 }}
               >
                 {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
@@ -239,6 +259,7 @@ export default function AdminLogin() {
 
           <button
             type="submit"
+            disabled={loading}
             style={{
               width: "100%",
               padding: "16px",
@@ -248,16 +269,29 @@ export default function AdminLogin() {
               borderRadius: "15px",
               fontSize: "1.1rem",
               fontWeight: 800,
-              cursor: "pointer",
+              cursor: loading ? "not-allowed" : "pointer",
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
               gap: "10px",
               transition: "0.3s",
               boxShadow: "0 10px 20px rgba(59, 130, 246, 0.2)",
+              opacity: loading ? 0.7 : 1,
             }}
           >
-            <LogIn size={20} /> Sign In
+            {loading ? (
+              <>
+                <Loader
+                  size={20}
+                  style={{ animation: "spin 1s linear infinite" }}
+                />
+                Signing In...
+              </>
+            ) : (
+              <>
+                <LogIn size={20} /> Sign In
+              </>
+            )}
           </button>
         </form>
       </motion.div>
