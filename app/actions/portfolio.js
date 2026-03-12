@@ -25,7 +25,7 @@ export async function updateProfile(data) {
       await prisma.profile.create({ data });
     }
     revalidatePath("/admin");
-    revalidatePath("/");
+    revalidatePath("/", "layout");
     return { success: true };
   } catch (error) {
     console.error("Error updating profile:", error);
@@ -49,7 +49,7 @@ export async function addProject(data) {
   try {
     await prisma.project.create({ data });
     revalidatePath("/admin");
-    revalidatePath("/");
+    revalidatePath("/", "layout");
     return { success: true };
   } catch (error) {
     console.error("Error adding project:", error);
@@ -61,7 +61,7 @@ export async function updateProject(id, data) {
   try {
     await prisma.project.update({ where: { id }, data });
     revalidatePath("/admin");
-    revalidatePath("/");
+    revalidatePath("/", "layout");
     return { success: true };
   } catch (error) {
     console.error("Error updating project:", error);
@@ -73,7 +73,7 @@ export async function deleteProject(id) {
   try {
     await prisma.project.delete({ where: { id } });
     revalidatePath("/admin");
-    revalidatePath("/");
+    revalidatePath("/", "layout");
     return { success: true };
   } catch (error) {
     console.error("Error deleting project:", error);
@@ -97,7 +97,7 @@ export async function addExperience(data) {
   try {
     await prisma.experience.create({ data });
     revalidatePath("/admin");
-    revalidatePath("/");
+    revalidatePath("/", "layout");
     return { success: true };
   } catch (error) {
     console.error("Error adding experience:", error);
@@ -109,7 +109,7 @@ export async function updateExperience(id, data) {
   try {
     await prisma.experience.update({ where: { id }, data });
     revalidatePath("/admin");
-    revalidatePath("/");
+    revalidatePath("/", "layout");
     return { success: true };
   } catch (error) {
     console.error("Error updating experience:", error);
@@ -121,7 +121,7 @@ export async function deleteExperience(id) {
   try {
     await prisma.experience.delete({ where: { id } });
     revalidatePath("/admin");
-    revalidatePath("/");
+    revalidatePath("/", "layout");
     return { success: true };
   } catch (error) {
     console.error("Error deleting experience:", error);
@@ -143,7 +143,7 @@ export async function addSkill(data) {
   try {
     await prisma.skill.create({ data });
     revalidatePath("/admin");
-    revalidatePath("/");
+    revalidatePath("/", "layout");
     return { success: true };
   } catch (error) {
     console.error("Error adding skill:", error);
@@ -155,7 +155,7 @@ export async function deleteSkill(id) {
   try {
     await prisma.skill.delete({ where: { id } });
     revalidatePath("/admin");
-    revalidatePath("/");
+    revalidatePath("/", "layout");
     return { success: true };
   } catch (error) {
     console.error("Error deleting skill:", error);
@@ -212,3 +212,31 @@ export async function validateAdmin(username, password) {
     return { success: false, error: "Authentication failed" };
   }
 }
+
+export async function getAdmin() {
+  try {
+    return await prisma.admin.findFirst();
+  } catch (error) {
+    console.error("Error fetching admin:", error);
+    return null;
+  }
+}
+
+export async function updateAdmin(data) {
+  try {
+    const admin = await prisma.admin.findFirst();
+    if (admin) {
+      await prisma.admin.update({
+        where: { id: admin.id },
+        data,
+      });
+    } else {
+      await prisma.admin.create({ data });
+    }
+    return { success: true };
+  } catch (error) {
+    console.error("Error updating admin:", error);
+    return { success: false, error: error.message };
+  }
+}
+
