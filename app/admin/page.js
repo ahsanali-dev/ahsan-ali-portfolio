@@ -27,7 +27,11 @@ import {
   AlertCircle,
   Loader,
   Mail,
+  MessageCircle,
+  ShieldCheck,
 } from "lucide-react";
+import PhoneInput from "react-phone-input-2";
+import "react-phone-input-2/lib/style.css";
 import {
   getProjects,
   addProject,
@@ -44,6 +48,8 @@ import {
   updateProfile,
   getMessages,
   deleteMessage,
+  getAdmin,
+  updateAdmin,
 } from "@/app/actions/portfolio";
 
 // ─── Toast Notification ────────────────────────────────────────
@@ -319,6 +325,7 @@ function ImageUpload({ label, onImageChange, currentImage }) {
 // ─── Main Admin Dashboard ───────────────────────────────────────
 export default function AdminDashboard() {
   const [activeTab, setActiveTab] = useState("overview");
+  const [profile, setProfile] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalType, setModalType] = useState("");
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -340,8 +347,9 @@ export default function AdminDashboard() {
       router.push("/login");
     } else {
       setIsCheckingAuth(false);
+      getProfile().then(setProfile);
     }
-  }, [router]);
+  }, [router, refresh]);
 
   const handleLogout = () => {
     localStorage.removeItem("isLoggedIn");
@@ -357,6 +365,7 @@ export default function AdminDashboard() {
     { id: "experience", label: "Experience", icon: Briefcase },
     { id: "skills", label: "Skills", icon: Code2 },
     { id: "messages", label: "Messages", icon: Mail },
+    { id: "security", label: "Security", icon: ShieldCheck },
   ];
 
   const openModal = (type, item = null) => {
@@ -439,11 +448,36 @@ export default function AdminDashboard() {
         .ui-switch input:checked + .slider .circle {
           transform: translateX(calc(var(--switch-width) - var(--circle-size) - (var(--circle-offset) * 2)));
         }
+
+        /* PhoneInput Overrides */
+        .react-tel-input .country-list {
+          background: #0f172a !important;
+          border: 1px solid var(--border-line) !important;
+        }
+        .react-tel-input .country-list .search {
+          background: #0f172a !important;
+          padding: 10px !important;
+        }
+        .react-tel-input .country-list .search-box {
+          background: #1e293b !important;
+          border: 1px solid var(--border-line) !important;
+          color: white !important;
+          border-radius: 8px !important;
+          width: 90% !important;
+          margin: 0 auto !important;
+        }
+        .react-tel-input .country-list .country:hover {
+          background: rgba(59, 130, 246, 0.1) !important;
+        }
+        .react-tel-input .country-list .country.highlight {
+          background: rgba(59, 130, 246, 0.2) !important;
+        }
       `}</style>
       {/* Mobile Header */}
       <div className="mobile-header">
         <h2 style={{ fontSize: "1.2rem", fontWeight: 900, margin: 0 }}>
-          Ahsan <span className="gradient-text">Admin</span>
+          {profile?.userName ? profile.userName.split(" ")[0] : "Ahsan"}{" "}
+          <span className="gradient-text">Admin</span>
         </h2>
         <button
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
@@ -487,7 +521,8 @@ export default function AdminDashboard() {
       >
         <div style={{ marginBottom: "50px", padding: "0 10px" }}>
           <h1 style={{ fontSize: "1.8rem", fontWeight: 900 }}>
-            Ahsan <span className="gradient-text">Admin</span>
+            {profile?.userName ? profile.userName.split(" ")[0] : "Ahsan"}{" "}
+            <span className="gradient-text">Admin</span>
           </h1>
           <p style={{ color: "var(--secondary-text)", fontSize: "0.9rem" }}>
             Portfolio Management
@@ -609,6 +644,9 @@ export default function AdminDashboard() {
                   refresh={refresh}
                   openConfirm={openConfirm}
                 />
+              )}
+              {activeTab === "security" && (
+                <SecurityView showToast={showToast} />
               )}
             </motion.div>
           </AnimatePresence>
@@ -865,6 +903,7 @@ function OverviewView({ showToast }) {
     expYears: "",
     projectsDone: "",
     happyClients: "",
+    whatsappNumber: "",
   });
   const [isPending, startTransition] = useTransition();
 
@@ -885,6 +924,7 @@ function OverviewView({ showToast }) {
           expYears: p.expYears || "",
           projectsDone: p.projectsDone || "",
           happyClients: p.happyClients || "",
+          whatsappNumber: p.whatsappNumber || "",
         });
         setStats({
           projects: p.projectsDone || "0",
@@ -1148,6 +1188,57 @@ function OverviewView({ showToast }) {
                 setForm((f) => ({ ...f, displayEmail: e.target.value }))
               }
             />
+          </div>
+          <div>
+            <label>
+              <MessageCircle size={16} /> WhatsApp Number
+            </label>
+            <div style={{ marginTop: "8px" }}>
+              <PhoneInput
+                country={"pk"}
+                value={form.whatsappNumber}
+                onChange={(phone) =>
+                  setForm((f) => ({ ...f, whatsappNumber: phone }))
+                }
+                enableSearch
+                searchPlaceholder="Search country..."
+                countryCodeEditable={false}
+                inputStyle={{
+                  width: "100%",
+                  height: "50px",
+                  background: "rgba(15, 23, 42, 0.5)",
+                  border: "1.5px solid var(--border-line)",
+                  borderRadius: "12px",
+                  color: "white",
+                  fontSize: "1rem",
+                  paddingLeft: "58px",
+                }}
+                buttonStyle={{
+                  background: "rgba(15, 23, 42, 0.5)",
+                  border: "1.5px solid var(--border-line)",
+                  borderRadius: "12px 0 0 12px",
+                  width: "48px",
+                }}
+                dropdownStyle={{
+                  background: "#0f172a",
+                  color: "white",
+                  borderRadius: "12px",
+                  border: "1.5px solid var(--border-line)",
+                  marginTop: "5px",
+                  padding: "8px",
+                  width: "300px",
+                }}
+                searchStyle={{
+                  background: "#1e293b",
+                  border: "1px solid var(--border-line)",
+                  color: "white",
+                  borderRadius: "8px",
+                  margin: "5px 0 10px 0",
+                  width: "100%",
+                  padding: "8px",
+                }}
+              />
+            </div>
           </div>
         </div>
 
@@ -2029,7 +2120,7 @@ function SkillForm({ onSave, showToast }) {
   );
 }
 
-function MessagesView({ showToast, refresh }) {
+function MessagesView({ showToast, refresh, openConfirm }) {
   const [messages, setMessages] = useState([]);
   const [loading, setLoading] = useState(true);
   const [isPending, startTransition] = useTransition();
@@ -2164,3 +2255,82 @@ function MessagesView({ showToast, refresh }) {
     </div>
   );
 }
+
+// ─── Security View ─────────────────────────────────────────────────
+function SecurityView({ showToast }) {
+  const [form, setForm] = useState({ username: "", password: "" });
+  const [isPending, startTransition] = useTransition();
+
+  useEffect(() => {
+    getAdmin().then((admin) => {
+      if (admin) {
+        setForm({ username: admin.username, password: admin.password });
+      }
+    });
+  }, []);
+
+  const handleUpdate = () => {
+    if (!form.username || !form.password) {
+      showToast("Username and Password are required!", "error");
+      return;
+    }
+    startTransition(async () => {
+      const result = await updateAdmin(form);
+      if (result.success) {
+        showToast("Admin credentials updated! 🔒");
+      } else {
+        showToast("Error updating credentials: " + result.error, "error");
+      }
+    });
+  };
+
+  return (
+    <div style={{ maxWidth: "600px" }}>
+      <h2 style={{ fontSize: "2.8rem", fontWeight: 900, marginBottom: "40px" }}>
+        Admin <span className="gradient-text">Security</span>
+      </h2>
+      <div className="admin-card">
+        <h3 style={{ marginBottom: "20px", fontSize: "1.3rem" }}>
+          Update Credentials
+        </h3>
+        <div style={{ display: "grid", gap: "20px" }}>
+          <div>
+            <label>
+              <User size={16} /> Admin Username
+            </label>
+            <input
+              type="text"
+              placeholder="Username"
+              value={form.username}
+              onChange={(e) => setForm((f) => ({ ...f, username: e.target.value }))}
+            />
+          </div>
+          <div>
+            <label>
+              <ShieldCheck size={16} /> Admin Password
+            </label>
+            <input
+              type="text"
+              placeholder="Password"
+              value={form.password}
+              onChange={(e) => setForm((f) => ({ ...f, password: e.target.value }))}
+            />
+          </div>
+          <button
+            className="btn-primary"
+            onClick={handleUpdate}
+            disabled={isPending}
+            style={{ marginTop: "10px" }}
+          >
+            {isPending ? <Loader size={18} /> : <Save size={18} />}{" "}
+            {isPending ? "Updating..." : "Update Credentials"}
+          </button>
+        </div>
+      </div>
+      <p style={{ color: "var(--secondary-text)", fontSize: "0.9rem", opacity: 0.7 }}>
+        Note: Use a strong password to keep your admin panel secure.
+      </p>
+    </div>
+  );
+}
+
