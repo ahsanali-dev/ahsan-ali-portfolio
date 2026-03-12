@@ -1,4 +1,5 @@
 // Server Component
+export const dynamic = "force-dynamic";
 
 import Scene3DWrapper from "@/components/Scene3DWrapper";
 import Navbar from "@/components/Navbar";
