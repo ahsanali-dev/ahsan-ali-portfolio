@@ -16,6 +16,12 @@ export default function Footer() {
     { label: "LinkedIn", href: profile?.linkedinUrl },
     { label: "GitHub", href: profile?.githubUrl },
     { label: "Twitter", href: profile?.twitterUrl },
+    {
+      label: "WhatsApp",
+      href: profile?.whatsappNumber
+        ? `https://wa.me/${profile.whatsappNumber.replace(/\D/g, "")}`
+        : null,
+    },
   ].filter((l) => l.href && l.href !== "#" && l.href !== "");
 
   return (

@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import { Mail, Linkedin, Github, Twitter } from "lucide-react";
+import { Mail, Linkedin, Github, Twitter, MessageCircle } from "lucide-react";
 import { addMessage, getProfile } from "@/app/actions/portfolio";
 
 export default function Contact() {
@@ -25,23 +25,35 @@ export default function Contact() {
       icon: <Mail size={24} />,
       label: "Email",
       href: profile?.displayEmail ? `mailto:${profile.displayEmail}` : null,
+      value: profile?.displayEmail || null,
     },
     {
       icon: <Linkedin size={24} />,
       label: "LinkedIn",
       href: profile?.linkedinUrl || null,
+      value: profile?.linkedinUrl || null,
     },
     {
       icon: <Github size={24} />,
       label: "GitHub",
       href: profile?.githubUrl || null,
+      value: profile?.githubUrl || null,
     },
     {
       icon: <Twitter size={24} />,
       label: "Twitter",
       href: profile?.twitterUrl || null,
+      value: profile?.twitterUrl || null,
     },
-  ].filter((s) => s.href && s.href !== "#");
+    {
+      icon: <MessageCircle size={24} />,
+      label: "WhatsApp",
+      href: profile?.whatsappNumber
+        ? `https://wa.me/${profile.whatsappNumber.replace(/\D/g, "")}`
+        : null,
+      value: profile?.whatsappNumber || null,
+    },
+  ].filter((s) => s.href && s.href !== "#" && s.href !== "");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -125,6 +137,8 @@ export default function Contact() {
               <motion.a
                 key={i}
                 href={social.href}
+                target={social.label === "Email" ? "_self" : "_blank"}
+                rel="noopener noreferrer"
                 whileHover={{ x: 10, color: "var(--primary)" }}
                 style={{
                   display: "flex",
@@ -150,7 +164,24 @@ export default function Contact() {
                 >
                   {social.icon}
                 </div>
-                {social.label}
+                <div style={{ display: "flex", flexDirection: "column" }}>
+                  <span style={{ fontSize: "1.1rem", fontWeight: 700 }}>
+                    {social.label}
+                  </span>
+                  {social.value && (
+                    <span
+                      style={{
+                        fontSize: "0.9rem",
+                        color: "var(--secondary-text)",
+                        marginTop: "2px",
+                      }}
+                    >
+                      {social.value.includes("//")
+                        ? social.value.split("//")[1]
+                        : social.value}
+                    </span>
+                  )}
+                </div>
               </motion.a>
             ))}
           </div>
