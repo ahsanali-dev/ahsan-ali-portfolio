@@ -10,7 +10,7 @@ async function main() {
     update: {},
     create: {
       username: "admin",
-      password: "Ahsan@1234", // In production, use hasehd passwords!
+      password: "Admin@1234", // In production, use hasehd passwords!
     },
   });
   console.log("Admin created:", admin.username);
@@ -21,14 +21,13 @@ async function main() {
     update: {},
     create: {
       id: 1,
-      userName: "Ahsan Ali",
-      headline: "Frontend Developer & React/Next.js Expert",
-      about:
-        "I turn vision into reality with code. Specilaizing in building high-performance web applications using React, Next.js, and modern CSS.",
-      githubUrl: "https://github.com/ahsanali-dev",
-      linkedinUrl: "https://linkedin.com/in/ahsan-dev",
+      userName: "admin",
+      headline: "Admin",
+      about: "Admin",
+      githubUrl: "",
+      linkedinUrl: "",
       twitterUrl: "",
-      displayEmail: "ahsan.dev98@gmail.com",
+      displayEmail: "example@gmail.com",
     },
   });
   console.log("Profile created:", profile.userName);

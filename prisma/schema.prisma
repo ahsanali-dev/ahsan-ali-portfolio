@@ -19,6 +19,7 @@ model Profile {
   linkedinUrl  String?
   twitterUrl   String?
   displayEmail String?
+  whatsappNumber String?
   expYears     String?
   projectsDone String?
   happyClients String?
