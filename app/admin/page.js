@@ -771,6 +771,16 @@ export default function AdminDashboard() {
       </AnimatePresence>
 
       <style jsx global>{`
+        .grid-2-col {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 25px;
+        }
+        .grid-3-col {
+          display: grid;
+          grid-template-columns: repeat(3, 1fr);
+          gap: 25px;
+        }
         .mobile-header {
           display: none;
           position: fixed;
@@ -805,7 +815,7 @@ export default function AdminDashboard() {
           .modal-container {
             padding: 30px 20px !important;
           }
-          .grid-2-col {
+          .grid-2-col, .grid-3-col {
             grid-template-columns: 1fr !important;
           }
           h2 {
@@ -1020,9 +1030,6 @@ function OverviewView({ showToast }) {
         <div
           className="grid-2-col"
           style={{
-            display: "grid",
-            gridTemplateColumns: "1fr 1fr",
-            gap: "25px",
             marginBottom: "25px",
           }}
         >
@@ -1039,14 +1046,7 @@ function OverviewView({ showToast }) {
             onImageChange={(img) => setForm((f) => ({ ...f, aboutImage: img }))}
           />
         </div>
-        <div
-          className="grid-2-col"
-          style={{
-            display: "grid",
-            gridTemplateColumns: "1fr 1fr",
-            gap: "25px",
-          }}
-        >
+        <div className="grid-2-col">
           <div style={{ gridColumn: "span 2" }}>
             <label>
               <User size={16} /> User Name
@@ -1090,13 +1090,7 @@ function OverviewView({ showToast }) {
         <h3 style={{ marginBottom: "25px", fontSize: "1.4rem" }}>
           Portfolio Statistics
         </h3>
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(3, 1fr)",
-            gap: "25px",
-          }}
-        >
+        <div className="grid-3-col">
           <div>
             <label>Years of Exp.</label>
             <input
@@ -1134,13 +1128,7 @@ function OverviewView({ showToast }) {
         <h3 style={{ marginBottom: "25px", fontSize: "1.4rem" }}>
           Social Presence
         </h3>
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "1fr 1fr",
-            gap: "25px",
-          }}
-        >
+        <div className="grid-2-col">
           <div>
             <label>
               <Github size={16} /> GitHub URL
