@@ -4,32 +4,33 @@ generator client {
 }
 
 datasource db {
-  provider = "mysql"
-  url      = env("DATABASE_URL")
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
 }
 
 model Profile {
-  id           Int      @id @default(autoincrement())
-  userName     String
-  headline     String
-  about        String   @db.Text
-  profileImage String?  @db.LongText
-  aboutImage   String?  @db.LongText
-  githubUrl    String?
-  linkedinUrl  String?
-  twitterUrl   String?
-  displayEmail String?
+  id             Int      @id @default(autoincrement())
+  userName       String
+  headline       String
+  about          String   @db.Text
+  profileImage   String?  @db.Text
+  aboutImage     String?  @db.Text
+  githubUrl      String?
+  linkedinUrl    String?
+  twitterUrl     String?
+  displayEmail   String?
   whatsappNumber String?
-  expYears     String?
-  projectsDone String?
-  happyClients String?
-  updatedAt    DateTime @updatedAt
+  expYears       String?
+  projectsDone   String?
+  happyClients   String?
+  updatedAt      DateTime @updatedAt
 }
 
 model Project {
   id          Int      @id @default(autoincrement())
   title       String
-  thumbnail   String?  @db.LongText
+  thumbnail   String?  @db.Text
   techStack   String
   githubLink  String?
   liveLink    String?
@@ -45,7 +46,7 @@ model Experience {
   startDate    String?
   endDate      String?
   isCurrent    Boolean  @default(false)
-  logo         String?  @db.LongText
+  logo         String?  @db.Text
   achievements String   @db.Text
   createdAt    DateTime @default(now())
 }
@@ -69,3 +70,4 @@ model Admin {
   username String @unique
   password String
 }
+
